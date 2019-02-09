@@ -1,2 +1,4 @@
 # FeedbackApp
-An offline feedback app. By means of a mobile phone a NodeJS server can be started, where the people, who are in the same WLAN, can give their ratings.
+An offline feedback app. 
+The app will be hosted by an smartphone. 
+People on the same network can give you feedback.
