@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Bewertungsapp
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list class="ion-padding" lines="none">
+    <ion-list-header>
+      <ion-label>{{currentSelectedCategorie.categorie}}</ion-label>
+    </ion-list-header>    
+    <ion-item *ngFor="let subCategorie of currentSelectedCategorie.subCategories">
+      <ion-grid>
+        <ion-col size="12">
+          <ion-label>{{subCategorie.name}}</ion-label>
+        </ion-col>
+        <ion-col size="12">
+          <ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#488aff"
+            defaultColor="#f4f4f4" readonly="false" rating="{{subCategorie.rating}}" fontSize="20px"
+            [(ngModel)]="subCategorie.rating"  (ratingChanged)="logRatingChange($event)">
+          </ionic4-star-rating>
+        </ion-col>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-button *ngIf="actualCategorie != currentSelectedCategorie.subCategories.length-1" (click)="nextCategorie();">Weiter</ion-button>
+      <ion-button *ngIf="actualCategorie == currentSelectedCategorie.subCategories.length-1" (click)="sendRating();">Senden</ion-button>
+    </ion-item>
+   
+  </ion-list>
+</ion-content>
