@@ -1,1 +1,17 @@
-[{"id":0,"name":"test","isActive":false},{"id":1,"name":"test","isActive":true},{"id":2,"name":"test","isActive":false}]
+[
+    {
+        "id": 0,
+        "name": "test",
+        "isActive": false
+    },
+    {
+        "id": 1,
+        "name": "test",
+        "isActive": true
+    },
+    {
+        "id": 2,
+        "name": "test",
+        "isActive": false
+    }
+]

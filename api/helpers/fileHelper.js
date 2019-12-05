@@ -12,8 +12,9 @@ module.exports.storeData = function(data, path) {
 
 module.exports.loadData = function(path) {
     try {
+        let data = fs.readFileSync(path, 'utf8');
         Winston.info(path + " loaded successfully")
-        return fs.readFileSync(path, 'utf8')
+        return data;
     } catch (err) {
         Winston.error("Error while loading " + path + " - " + err);
         return false

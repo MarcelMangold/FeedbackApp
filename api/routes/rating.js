@@ -64,15 +64,50 @@ router.post('/api/rating/:id', async (req, res) => {
     }
 });
 
-router.get('/api/ratings', async (req, res) => {
+router.get('/api/feedback', async (req, res) => {
+    console.log("------------");
     try {
-        let data = JSON.parse(fileHelper.loadData("rating.json"));
-        if (data == false) {
+        let data = JSON.parse(fileHelper.loadData("feedback.json"));
+        if (data != false) {
+            data.forEach(element => {
+                if (element.isActive)
+                    data = element;
+            });
+            res.status(httpCodes.ok).send(data.categories);
+        }
+        else {
             res.status(httpCodes.notFound).send("no data found");
+        }
+    } catch (err) {
+        logger.error(err);
+        res.status(httpCodes.internalError).send(err);
+    }
+});
+
+router.post('/api/topic', async (req, res) => {
+    try {
+        let data = JSON.parse(fileHelper.loadData("topic.json"));
+        if (data) {
+            let highestId = 0;
+            data.forEach(element => {
+                if (element.id > highestId)
+                    highestId = element.id;
+            });
+            let tempData = new Object();
+            tempData.id = highestId + 1;
+            tempData.name = req.params.name;
+            tempData.isActive = false;
+            data.push(tempData);
+            fileHelper.storeData(data, "topic.json");
+
+            data = JSON.parse(fileHelper.loadData("topic.json"));
+            res.status(httpCodes.notFound).send("No topic found");
         }
         else {
             res.status(httpCodes.ok).send(data);
         }
+
+
     } catch (err) {
         logger.error(err);
         res.status(httpCodes.internalError).send(err);
@@ -116,7 +151,7 @@ router.post('/api/topic/:name', async (req, res) => {
 
 router.put('/api/topic/:id', async (req, res) => {
     try {
-        
+
         let data = JSON.parse(fileHelper.loadData("topic.json"));
         console.log(data);
         if (data == false) {

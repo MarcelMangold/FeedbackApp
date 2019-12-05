@@ -1,0 +1,64 @@
+[
+    {
+        "id": 1,
+        "name": "test",
+        "isActive": false,
+        "categories": [
+            {
+                "name": "test",
+                "rating": 1
+            },
+            {
+                "name": "test",
+                "rating": 1
+            },
+            {
+                "name": "test",
+                "rating": 1
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "test",
+        "isActive": true,
+        "categories": [
+            {
+                "name": "test1",
+                "subCategories": [
+                    {
+                        "name": "test",
+                        "rating": 1
+                    },
+                    {
+                        "name": "test",
+                        "rating": 1
+                    },
+                    {
+                        "name": "test",
+                        "rating": 1
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "test",
+        "isActive": false,
+        "categories": [
+            {
+                "name": "test",
+                "rating": 1
+            },
+            {
+                "name": "test",
+                "rating": 1
+            },
+            {
+                "name": "test",
+                "rating": 1
+            }
+        ]
+    }
+]
