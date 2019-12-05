@@ -9,7 +9,7 @@
 <ion-content>
   <ion-list class="ion-padding" lines="none">
     <ion-list-header>
-      <ion-label>{{currentSelectedCategorie.categorie}}</ion-label>
+      <ion-label>{{currentSelectedCategorie.name}}</ion-label>
     </ion-list-header>    
     <ion-item *ngFor="let subCategorie of currentSelectedCategorie.subCategories">
       <ion-grid>
@@ -25,8 +25,8 @@
       </ion-grid>
     </ion-item>
     <ion-item>
-      <ion-button *ngIf="actualCategorie != currentSelectedCategorie.subCategories.length-1" (click)="nextCategorie();">Weiter</ion-button>
-      <ion-button *ngIf="actualCategorie == currentSelectedCategorie.subCategories.length-1" (click)="sendRating();">Senden</ion-button>
+      <ion-button *ngIf="actualCategorie != categorieList.length-1" (click)="nextCategorie();">Weiter</ion-button>
+      <ion-button *ngIf="actualCategorie == categorieList.length-1" (click)="sendRating();">Senden</ion-button>
     </ion-item>
    
   </ion-list>

@@ -65,7 +65,6 @@ router.post('/api/rating/:id', async (req, res) => {
 });
 
 router.get('/api/feedback', async (req, res) => {
-    console.log("------------");
     try {
         let data = JSON.parse(fileHelper.loadData("feedback.json"));
         if (data != false) {
@@ -73,11 +72,21 @@ router.get('/api/feedback', async (req, res) => {
                 if (element.isActive)
                     data = element;
             });
-            res.status(httpCodes.ok).send(data.categories);
+            res.status(httpCodes.ok).send(data);
         }
         else {
             res.status(httpCodes.notFound).send("no data found");
         }
+    } catch (err) {
+        logger.error(err);
+        res.status(httpCodes.internalError).send(err);
+    }
+});
+
+router.post('/api/feedback', async (req, res) => {
+    try {
+        console.log(req.body);
+        res.status(200).send({ success: true, message: "erfolgreich" })
     } catch (err) {
         logger.error(err);
         res.status(httpCodes.internalError).send(err);

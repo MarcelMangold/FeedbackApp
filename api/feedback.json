@@ -27,6 +27,23 @@
                 "name": "test1",
                 "subCategories": [
                     {
+                        "name": "test1",
+                        "rating": 1
+                    },
+                    {
+                        "name": "test2",
+                        "rating": 1
+                    },
+                    {
+                        "name": "test3",
+                        "rating": 1
+                    }
+                ]
+            },
+            {
+                "name": "test2",
+                "subCategories": [
+                    {
                         "name": "test",
                         "rating": 1
                     },
