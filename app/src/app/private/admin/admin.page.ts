@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user';
+import { apiService } from 'src/app/services/api.service';
 
 @Component({
     selector: 'app-admin',
@@ -8,17 +10,17 @@ import { Component, OnInit } from '@angular/core';
 export class AdminPage implements OnInit {
 
     isLoggedIn:boolean = false;
-    userName:string = "";
-    password:string = "";
-    constructor() { }
+    user:User = new User("","");
+    constructor(private apiService:apiService) { }
 
     ngOnInit() {
     }
 
     login()
     {
-        if(this.userName == "test" && this.password == "test")
-            this.isLoggedIn = true;
+        this.apiService.login(this.user).then((res: boolean) => {
+            this.isLoggedIn = res;
+        });
     }
 
 }

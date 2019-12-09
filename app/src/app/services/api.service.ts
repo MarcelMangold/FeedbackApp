@@ -6,40 +6,58 @@ import { Categorie } from '../models/categorie';
 import { Answer } from '../models/answer';
 import { Toast } from '../models/toast';
 import { Topic } from '../models/categorie copy';
+import { User } from '../models/user';
 
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class apiService {
-  constructor(private http:HttpClient) {
-  }
+    constructor(private http: HttpClient) {
+    }
 
-  getCategories() {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
-    return new Promise((resolve, reject) => {
-      this.http.get(environment.url + `/api/questionnaire`, httpOptions)
-        .toPromise()
-        .then((res: Topic) => {
-          resolve(res);
+    getCategories() {
+        const httpOptions = {
+            headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+        };
+        return new Promise((resolve, reject) => {
+            this.http.get(environment.url + `/api/questionnaire`, httpOptions)
+                .toPromise()
+                .then((res: Topic) => {
+                    resolve(res);
+                })
+                .catch(err => reject(err));
         })
-        .catch(err => reject(err));
-    })
-  }
+    }
 
-  sendRating(categories:Topic) {
-    const httpOptions = {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-      };
-    return new Promise((resolve, reject) => {
-        this.http.post(environment.url + "/api/questionnaire", { categories}, httpOptions)
-          .toPromise()
-          .then((res:Answer) => {
-            resolve({toast: new Toast("Hinzugefügt", "success", "bottom"), content: res.message});
-          })
-          .catch(err => reject(err));
-      })
-  }
+    sendRating(categories: Topic) {
+        const httpOptions = {
+            headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+        };
+        return new Promise((resolve, reject) => {
+            this.http.post(environment.url + "/api/questionnaire", { categories }, httpOptions)
+                .toPromise()
+                .then((res: Answer) => {
+                    resolve({ toast: new Toast("Hinzugefügt", "success", "bottom"), content: res.message });
+                })
+                .catch(err => reject(err));
+        })
+    }
+
+    login(user: User) {
+        const httpOptions = {
+            headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+        };
+        return new Promise((resolve, reject) => {
+            this.http.post(environment.url + "/api/login", { user }, httpOptions)
+                .toPromise()
+                .then((res: Answer) => {
+                    if (res.success)
+                        resolve(true);
+                    else
+                        resolve(false);
+                })
+                .catch(err => reject(err));
+        })
+    }
 }

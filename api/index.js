@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const survey = require('./routes/survey');
 const questionnaire = require('./routes/questionnaire');
+const userManagement = require('./routes/userManagement');
 const logger = require('./helpers/logger');
 const port = 3000;
 const ipAdress ='192.168.178.95'
@@ -27,6 +28,7 @@ var corsOptions = {
 
 app.use(survey);
 app.use(questionnaire);
+app.use(userManagement);
 
 const server = http.createServer(app);
 server.listen(port, ipAdress);
