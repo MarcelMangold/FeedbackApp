@@ -13,6 +13,7 @@ export class RatingPage {
     currentSelectedCategorie: Categorie = new Categorie("test", []);
     actualCategorie = 0;
     topic:Topic;
+    isSend:boolean= false;
     constructor(private apiService: apiService) { }
 
     async ionViewWillEnter() {
@@ -23,8 +24,6 @@ export class RatingPage {
             });
      
         this.currentSelectedCategorie = this.categorieList[this.actualCategorie];
-        console.log(this.currentSelectedCategorie);
-
     }
 
     nextCategorie() {
@@ -32,9 +31,15 @@ export class RatingPage {
         this.currentSelectedCategorie = this.categorieList[this.actualCategorie];
     }
 
+    previousCategorie() {
+        this.actualCategorie--;
+        this.currentSelectedCategorie = this.categorieList[this.actualCategorie];
+    }
+    
+
     sendRating() {
-        console.log(this.categorieList);
         this.apiService.sendRating(this.topic);
+        this.isSend = true;
     }
 
     logRatingChange() {

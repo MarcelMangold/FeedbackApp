@@ -20,7 +20,7 @@ export class apiService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     return new Promise((resolve, reject) => {
-      this.http.get(environment.url + `/api/feedback`, httpOptions)
+      this.http.get(environment.url + `/api/questionnaire`, httpOptions)
         .toPromise()
         .then((res: Topic) => {
           resolve(res);
@@ -34,7 +34,7 @@ export class apiService {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' })
       };
     return new Promise((resolve, reject) => {
-        this.http.post(environment.url + "/api/feedback", { categories}, httpOptions)
+        this.http.post(environment.url + "/api/questionnaire", { categories}, httpOptions)
           .toPromise()
           .then((res:Answer) => {
             resolve({toast: new Toast("Hinzugefügt", "success", "bottom"), content: res.message});

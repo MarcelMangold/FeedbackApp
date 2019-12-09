@@ -24,36 +24,45 @@
         "isActive": true,
         "categories": [
             {
-                "name": "test1",
+                "name": "Aussehen",
                 "subCategories": [
                     {
-                        "name": "test1",
-                        "rating": 1
+                        "name": "Optik",
+                        "rating": 5
                     },
                     {
-                        "name": "test2",
-                        "rating": 1
-                    },
-                    {
-                        "name": "test3",
-                        "rating": 1
+                        "name": "Konsistenz",
+                        "rating": 5
                     }
                 ]
             },
             {
-                "name": "test2",
+                "name": "Geschmack",
                 "subCategories": [
                     {
-                        "name": "test",
-                        "rating": 1
+                        "name": "Geschmack",
+                        "rating": 5
                     },
                     {
-                        "name": "test",
-                        "rating": 1
+                        "name": "Würzung",
+                        "rating": 5
                     },
                     {
-                        "name": "test",
-                        "rating": 1
+                        "name": "Schärfe",
+                        "rating": 5
+                    }
+                ]
+            },
+            {
+                "name": "Sonstiges",
+                "subCategories": [
+                    {
+                        "name": "Menge",
+                        "rating": 5
+                    },
+                    {
+                        "name": "Sonstige Anmerkungen",
+                        "rating": 5
                     }
                 ]
             }

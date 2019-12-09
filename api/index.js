@@ -2,9 +2,11 @@ const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const rating = require('./routes/rating');
+const survey = require('./routes/survey');
+const questionnaire = require('./routes/questionnaire');
 const logger = require('./helpers/logger');
 const port = 3000;
+const ipAdress ='192.168.178.95'
 const app = express();
 var cors = require('cors')
 
@@ -13,7 +15,7 @@ app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
 var whitelist = [
-  'http://localhost:8100'
+  'http:// 192.168.153.17:8100'
 ];
 var corsOptions = {
   origin: function(origin, callback){
@@ -23,12 +25,12 @@ var corsOptions = {
   credentials: true
 };
 
-app.use(rating);
-
+app.use(survey);
+app.use(questionnaire);
 
 const server = http.createServer(app);
-server.listen(port);
-logger.info(`Server is listening on port ${port}`);
+server.listen(port, ipAdress);
+logger.info(`Server is listening on adress ${ipAdress}:${port}`);
 
 
 
