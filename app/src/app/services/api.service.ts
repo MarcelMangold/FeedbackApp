@@ -7,6 +7,7 @@ import { Answer } from '../models/answer';
 import { Toast } from '../models/toast';
 import { Topic } from '../models/categorie copy';
 import { User } from '../models/user';
+import { Survey } from '../models/survey';
 
 
 @Injectable({
@@ -39,6 +40,34 @@ export class apiService {
                 .toPromise()
                 .then((res: Answer) => {
                     resolve({ toast: new Toast("Hinzugefügt", "success", "bottom"), content: res.message });
+                })
+                .catch(err => reject(err));
+        })
+    }
+
+    getSurveys() {
+        const httpOptions = {
+            headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+        };
+        return new Promise((resolve, reject) => {
+            this.http.get(environment.url + `/api/surveys`, httpOptions)
+                .toPromise()
+                .then((res: Array<Survey>) => {
+                    resolve(res);
+                })
+                .catch(err => reject(err));
+        })
+    }
+
+    setStateSurvey(survey: Survey) {
+        const httpOptions = {
+            headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+        };
+        return new Promise((resolve, reject) => {
+            this.http.put(environment.url + "/api/stateSurvey", { survey }, httpOptions)
+                .toPromise()
+                .then((res: Answer) => {
+                    resolve(res);
                 })
                 .catch(err => reject(err));
         })
