@@ -13,7 +13,7 @@ import { Survey } from '../models/survey';
 @Injectable({
     providedIn: 'root'
 })
-export class apiService {
+export class ApiService {
     constructor(private http: HttpClient) {
     }
 

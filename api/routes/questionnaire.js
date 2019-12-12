@@ -10,7 +10,6 @@ router.post('/api/questionnaire', async (req, res) => {
         let data = JSON.parse(fileHelper.loadData("rating.json"));
         if (data != false) {
             data.forEach(element => {
-                console.log("----------" + element.id + "-------" + userRating.id);
                 if (element.id == userRating.id)
                 {
                     element.content.push(userRating.categories);

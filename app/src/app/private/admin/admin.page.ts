@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
-import { apiService } from 'src/app/services/api.service';
+import { ApiService } from 'src/app/services/api.service';
 import { Survey } from 'src/app/models/survey';
 import { Answer } from 'src/app/models/answer';
 
@@ -15,7 +15,7 @@ export class AdminPage implements OnInit {
     user: User = new User("", "");
     surveys: Array<Survey> = [];
     disableToogleButton: boolean = false;
-    constructor(private apiService: apiService) { }
+    constructor(private apiService: ApiService) { }
 
 
     ngOnInit() {

@@ -30,7 +30,7 @@ router.put('/api/stateSurvey', async (req, res) => {
         let survey = req.body.survey;
         if (data != false) {
             data.forEach(element => {
-                if (element.id == survey.id)
+                if (element.surveyId == survey.surveyId)
                     element.isActive = true;
                 else
                     element.isActive = false;
@@ -46,6 +46,70 @@ router.put('/api/stateSurvey', async (req, res) => {
         res.status(httpCodes.internalError).send(err);
     }
 });
+
+router.get('/api/survey/:id', async (req, res) => {
+    let surveyId = req.params.id;
+    /*  try { */
+    let data = JSON.parse(fileHelper.loadData("rating.json"));
+    if (data != false) {
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].surveyId == surveyId) {
+                data = calcuteRating(data[i])
+                res.status(httpCodes.ok).send(data);
+                return;
+            }
+            else if (i == data.length - 1)
+                res.status(httpCodes.badRequest).send(`no data found for id ${surveyId}`);
+        }
+    }
+    else {
+        res.status(httpCodes.notFound).send("no data found");
+    }
+    /*     } catch (err) {
+            logger.error(err);
+            res.status(httpCodes.internalError).send(err);
+        } */
+});
+
+function calcuteRating(data) {
+    let rating = [];
+    data.content[0].forEach(categorie => {
+        categorie.subCategories.forEach(subcategorie => {
+            subcategorie.averageRating = subcategorie.rating;
+            subcategorie.highestRating = subcategorie.rating;
+            subcategorie.lowestRating = subcategorie.rating;
+            subcategorie.numberParticipants = 1;
+        });
+        rating.push(categorie);
+    });
+
+    for (let j = 1; j < data.content.length; j++) {
+        data.content[j].forEach(categorie => {
+            rating.forEach(ratingData => {
+                if (ratingData.categorieId == categorie.categorieId) {
+                    categorie.subCategories.forEach(subCategorie => {
+                        for (let i = 0; i < ratingData.subCategories.length; i++) {
+                            if (ratingData.subCategories[i].subCategorieId == subCategorie.subCategorieId) {
+                                let ratingSubCategorie = ratingData.subCategories[i];
+                                subCategorie.rating =  parseInt(subCategorie.rating);
+                                //(average value old * N + new value) / (N+1)
+                                ratingSubCategorie.averageRating = ((ratingSubCategorie.averageRating * ratingSubCategorie.numberParticipants) + subCategorie.rating) / (ratingSubCategorie.numberParticipants + 1);
+                                ratingSubCategorie.highestRating = ratingSubCategorie.highestRating > subCategorie.rating ? ratingSubCategorie.highestRating : subCategorie.rating;
+                                ratingSubCategorie.lowestRating = ratingSubCategorie.lowestRating < subCategorie.rating ? ratingSubCategorie.highestRating : subCategorie.rating;
+                                ratingSubCategorie.numberParticipants = ratingSubCategorie.numberParticipants + 1;
+                            }
+                        }
+
+                    })
+                }
+            });
+            /*    rating.push(element); 
+               console.log(categorie);
+               console.log("-------------"); */
+        });
+    };
+    return rating;
+}
 
 router.post('/api/topic', async (req, res) => {
     try {

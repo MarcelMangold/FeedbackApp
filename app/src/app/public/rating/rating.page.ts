@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Categorie } from 'src/app/models/categorie';
-import { apiService } from 'src/app/services/api.service';
+import { ApiService } from 'src/app/services/api.service';
 import { Topic } from 'src/app/models/categorie copy';
 
 @Component({
@@ -10,11 +10,11 @@ import { Topic } from 'src/app/models/categorie copy';
 })
 export class RatingPage {
     categorieList: Array<Categorie> = [];
-    currentSelectedCategorie: Categorie = new Categorie("test", []);
+    currentSelectedCategorie: Categorie = new Categorie(-1,"test", []);
     actualCategorie = 0;
     topic:Topic;
     isSend:boolean= false;
-    constructor(private apiService: apiService) { }
+    constructor(private apiService: ApiService) { }
 
     async ionViewWillEnter() {
         await this.apiService.getCategories()
