@@ -24,6 +24,7 @@ export class AdminPage implements OnInit {
     async login() {
         await this.apiService.login(this.user).then((res: boolean) => {
             this.isLoggedIn = res;
+            localStorage.setItem("isLoggedIn",this.isLoggedIn.toString())
         });
         if (this.isLoggedIn) {
             this.apiService.getSurveys().then((res: Array<Survey>) => {
