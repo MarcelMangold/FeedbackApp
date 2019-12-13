@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 import { Categorie } from '../models/categorie';
 import { Answer } from '../models/answer';
 import { Toast } from '../models/toast';
-import { Topic } from '../models/categorie copy';
+import { Topic } from '../models/topic';
 import { User } from '../models/user';
 import { Survey } from '../models/survey';
 
@@ -59,6 +59,21 @@ export class ApiService {
         })
     }
 
+    getSurveyDetails(surveyId:number) {
+        const httpOptions = {
+            headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+        };
+        return new Promise((resolve, reject) => {
+            this.http.get(environment.url + `/api/survey/${surveyId}`, httpOptions)
+                .toPromise()
+                .then((res: Array<Categorie>) => {
+                    resolve(res);
+                })
+                .catch(err => reject(err));
+        })
+    }
+
+    
     setStateSurvey(survey: Survey) {
         const httpOptions = {
             headers: new HttpHeaders({ 'Content-Type': 'application/json' })

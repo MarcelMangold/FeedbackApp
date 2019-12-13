@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Categorie } from 'src/app/models/categorie';
 import { ApiService } from 'src/app/services/api.service';
-import { Topic } from 'src/app/models/categorie copy';
+import { Topic } from 'src/app/models/topic';
 
 @Component({
     selector: 'app-rating',

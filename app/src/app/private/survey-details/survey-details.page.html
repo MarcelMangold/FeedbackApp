@@ -1,9 +1,63 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>surveyDetails</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Umfragedetails</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content *ngIf="isLoggedIn">
-    TEst
+    <ion-content>
+        <ion-list class="ion-no-padding" lines="none" *ngIf="!isSend">
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <div class="ion-text-start">
+                            Teilnehmer: {{categories[0].subCategories[0].numberParticipants}}
+                        </div>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <div class="ion-text-center">Kategorien</div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+            <ion-list style="margin:0px !important;" *ngFor="let categorie of categories; let i = index;" class="accordion-list" lines="none" detail="false" class="ion-no-padding">
+                <ion-item tappable (click)="toogleSection(i)" [ngClass]="{'section-active': categorie.open, 'section': !categorie.open}">
+                    <ion-icon slot="start" name="arrow-forward" *ngIf="!categorie.open"></ion-icon>
+                    <ion-icon slot="start" name="arrow-down" *ngIf="categorie.open"></ion-icon>
+                    <ion-label class="smallPadding"><b>{{categorie.name}}</b></ion-label>
+                </ion-item>
+                <div *ngIf="categorie.open">
+                    <ion-list style="margin:0px !important;" *ngFor="let subCategorie of categorie.subCategories" lines="none" detail="false" class="child-list">
+                        <ion-item>
+                            <b>{{subCategorie.name}}</b>
+                        </ion-item>
+                        <ion-item>
+                            <ion-row>
+                                <ion-col size="4">Average Rating</ion-col>
+                                <ion-col size="8">
+                                    <ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#488aff" defaultColor="#f4f4f4" readonly="false" rating="{{subCategorie.averageRating}}" fontSize="20px" (ratingChanged)="logRatingChange($event)">
+                                    </ionic4-star-rating>
+                                </ion-col>
+                                <ion-col size="4">Highest Rating</ion-col>
+                                <ion-col size="8">
+                                    <ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#488aff" defaultColor="#f4f4f4" readonly="false" rating="{{subCategorie.highestRating}}" fontSize="20px" (ratingChanged)="logRatingChange($event)">
+                                    </ionic4-star-rating>
+                                </ion-col>
+                                <ion-col size="4">Lowest Rating</ion-col>
+                                <ion-col size="8">
+                                    <ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#488aff" defaultColor="#f4f4f4" readonly="false" rating="{{subCategorie.lowestRating}}" fontSize="20px" (ratingChanged)="logRatingChange($event)">
+                                    </ionic4-star-rating>
+                                </ion-col>
+                            </ion-row>
+                        </ion-item>
+                    </ion-list>
+                </div>
+            </ion-list>
+        </ion-list>
+        <ion-text class="ion-padding" *ngIf="isSend">Vielen Dank für dein Feedback!</ion-text>
+    </ion-content>
 </ion-content>

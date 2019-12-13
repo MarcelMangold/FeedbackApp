@@ -40,7 +40,7 @@ export class AdminPage implements OnInit {
     setSurveyActive(survey: Survey) {
         this.disableToogleButton = true;
         this.surveys.forEach(element => {
-            if (element.id == survey.id)
+            if (element.surveyId == survey.surveyId)
                 element.isActive = true;
             else
                 element.isActive = false;

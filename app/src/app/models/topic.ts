@@ -2,11 +2,11 @@ import { SubCategorie } from "./subcategorie";
 import { Categorie } from "./categorie";
 
 export class Topic {
-    public id: number;
+    public surveyId: number;
     public categories: Array<Categorie>;
 
-    constructor( id:number, categories: Array<Categorie>) {
-        this.id = id;
+    constructor( surveyId:number, categories: Array<Categorie>) {
+        this.surveyId = surveyId;
         this.categories = categories;
        
     }

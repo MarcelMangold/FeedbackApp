@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "surveyId": 1,
     "name": "test",
     "isActive": false,
     "categories": [
@@ -42,7 +42,7 @@
     ]
   },
   {
-    "id": 3,
+    "surveyId": 3,
     "name": "test",
     "isActive": false,
     "categories": [

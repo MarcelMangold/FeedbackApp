@@ -11,7 +11,7 @@ router.get('/api/surveys', async (req, res) => {
         if (data != false) {
             let surveys = [];
             data.forEach(element => {
-                surveys.push({ id: element.id, name: element.name, isActive: element.isActive })
+                surveys.push({ surveyId: element.surveyId, name: element.name, isActive: element.isActive })
             });
             res.status(httpCodes.ok).send(surveys);
         }

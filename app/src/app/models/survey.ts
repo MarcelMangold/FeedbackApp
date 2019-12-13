@@ -1,10 +1,10 @@
 export class Survey {
-    public id:number;
+    public surveyId:number;
     public name: string;
     public isActive: boolean
 
-    constructor(id:number,name: string, isActive: boolean) {
-        this.id = id;
+    constructor(surveyId:number,name: string, isActive: boolean) {
+        this.surveyId = surveyId;
         this.name = name;
         this.isActive = isActive
     }
