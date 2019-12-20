@@ -5,9 +5,8 @@ const morgan = require('morgan');
 const survey = require('./routes/survey');
 const questionnaire = require('./routes/questionnaire');
 const userManagement = require('./routes/userManagement');
+const { whitelistIp, ipAdress, port } = require('./config/config');
 const logger = require('./helpers/logger');
-const port = 3000;
-const ipAdress ='192.168.178.95'
 const app = express();
 var cors = require('cors')
 
@@ -16,7 +15,7 @@ app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
 var whitelist = [
-  'http:// 192.168.153.17:8100'
+    whitelistIp
 ];
 var corsOptions = {
   origin: function(origin, callback){
