@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header *ngIf="!isSend">
     <ion-toolbar>
         <ion-title>
             {{currentSelectedCategorie.name}}
@@ -20,10 +20,10 @@
             </ion-grid>
         </ion-item>
     </ion-list>
-    <ion-text class="ion-padding" *ngIf="isSend">Vielen Dank für dein Feedback!</ion-text>
+    <ion-text class="ion-padding ion-text-center" *ngIf="isSend"><h1>Vielen Dank für dein Feedback!</h1></ion-text>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="!isSend">
     <ion-item>
         <ion-button slot="start" *ngIf="actualCategorie > 0" (click)="previousCategorie();">Zurück</ion-button>
         <ion-button slot="end" *ngIf="actualCategorie != categorieList.length-1" (click)="nextCategorie();">Weiter</ion-button>

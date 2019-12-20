@@ -111,3 +111,4 @@ _ReSharper*/
 #Nuget packages folder
 packages/
 environment.prod.ts
+/api/rating.json
