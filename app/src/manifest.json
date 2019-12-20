@@ -1,0 +1,18 @@
+{
+    "name": "Feedback-App",
+    "short_name": "Feedapp",
+    "theme_color": "#92a2bd",
+    "background_color": "#92a2bd",
+    "display": "standalone",
+    "orientation": "portrait",
+    "default_locale": "de",
+    "scope": "/",
+    "start_url": "/",
+    "icons": [
+      {
+        "src": "assets/icons/favicon.png",
+        "sizes": "72x72",
+        "type": "image/png"
+      }
+    ]
+  }
