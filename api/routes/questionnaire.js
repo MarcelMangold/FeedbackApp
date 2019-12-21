@@ -37,11 +37,15 @@ router.get('/api/questionnaire', async (req, res) => {
     try {
         let data = JSON.parse(fileHelper.loadData("survey.json"));
         if (data != false) {
+            let activeSurvey = null;
             data.forEach(element => {
                 if (element.isActive)
-                    data = element;
+                    activeSurvey = element;                    
             });
-            res.status(httpCodes.ok).send(data);
+            if(activeSurvey !== null)
+                res.status(httpCodes.ok).send(activeSurvey);
+            else
+                res.status(httpCodes.noContent).send("no data found");
         }
         else {
             res.status(httpCodes.notFound).send("no data found");

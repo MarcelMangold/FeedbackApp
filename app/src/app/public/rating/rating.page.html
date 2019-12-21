@@ -1,4 +1,4 @@
-<ion-header *ngIf="!isSend">
+<ion-header *ngIf="!isSend && existActiveSurvey">
     <ion-toolbar>
         <ion-title>
             {{currentSelectedCategorie.name}}
@@ -6,7 +6,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="existActiveSurvey">
     <ion-list class="ion-padding" lines="none" *ngIf="!isSend">
         <ion-item *ngFor="let subCategorie of currentSelectedCategorie.subCategories">
             <ion-grid>
@@ -23,7 +23,14 @@
     <ion-text class="ion-padding ion-text-center" *ngIf="isSend"><h1>Vielen Dank für dein Feedback!</h1></ion-text>
 </ion-content>
 
-<ion-footer *ngIf="!isSend">
+<ion-content *ngIf="!existActiveSurvey">
+        <ion-text class="ion-padding ion-text-center"><h1>Zurzeit ist keine Umfrage aktiv! <br> Bitte versuchen sie es später erneut.</h1></ion-text>
+        <div class="ion-padding ion-text-center">
+            <button (click)="ionViewWillEnter()"> <ion-icon size="large" color="primary" name="refresh"></ion-icon></button>
+        </div>       
+</ion-content>
+
+<ion-footer *ngIf="!isSend && existActiveSurvey">
     <ion-item>
         <ion-button slot="start" *ngIf="actualCategorie > 0" (click)="previousCategorie();">Zurück</ion-button>
         <ion-button slot="end" *ngIf="actualCategorie != categorieList.length-1" (click)="nextCategorie();">Weiter</ion-button>

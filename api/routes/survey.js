@@ -31,7 +31,7 @@ router.put('/api/stateSurvey', async (req, res) => {
         if (data != false) {
             data.forEach(element => {
                 if (element.surveyId == survey.surveyId)
-                    element.isActive = true;
+                    element.isActive = !survey.isActive;
                 else
                     element.isActive = false;
             });

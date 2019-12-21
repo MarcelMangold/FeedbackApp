@@ -7,5 +7,14 @@ export class Answer {
     }
 }
 
+export class AnswerSurvey {
+    public success: boolean;
+    public message;
+    constructor(success:boolean, message) {
+       this.success = success;
+       this.message = message;
+    }
+}
+
 
 

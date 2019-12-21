@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 import { environment } from '../../environments/environment';
 import { Categorie } from '../models/categorie';
-import { Answer } from '../models/answer';
+import { Answer, AnswerSurvey } from '../models/answer';
 import { Toast } from '../models/toast';
 import { Topic } from '../models/topic';
 import { User } from '../models/user';
@@ -22,10 +22,16 @@ export class ApiService {
             headers: new HttpHeaders({ 'Content-Type': 'application/json' })
         };
         return new Promise((resolve, reject) => {
-            this.http.get(environment.url + `/api/questionnaire`, httpOptions)
+            this.http.get(environment.url + `/api/questionnaire`, { observe: 'response' })
                 .toPromise()
-                .then((res: Topic) => {
-                    resolve(res);
+                .then((res) => {
+                    switch (res['status'] ) {
+                        case 204:
+                            resolve(new AnswerSurvey(false, "no active survey"));
+                            break;                    
+                        default:
+                            resolve(new AnswerSurvey(true, res['body']));
+                    }           
                 })
                 .catch(err => reject(err));
         })
@@ -36,9 +42,10 @@ export class ApiService {
             headers: new HttpHeaders({ 'Content-Type': 'application/json' })
         };
         return new Promise((resolve, reject) => {
-            this.http.post(environment.url + "/api/questionnaire", { categories }, httpOptions)
+            this.http.post(environment.url + "/api/questionnaire", { categories },httpOptions)
                 .toPromise()
                 .then((res: Answer) => {
+
                     resolve({ toast: new Toast("Hinzugefügt", "success", "bottom"), content: res.message });
                 })
                 .catch(err => reject(err));
@@ -59,7 +66,7 @@ export class ApiService {
         })
     }
 
-    getSurveyDetails(surveyId:number) {
+    getSurveyDetails(surveyId: number) {
         const httpOptions = {
             headers: new HttpHeaders({ 'Content-Type': 'application/json' })
         };
@@ -73,7 +80,7 @@ export class ApiService {
         })
     }
 
-    
+
     setStateSurvey(survey: Survey) {
         const httpOptions = {
             headers: new HttpHeaders({ 'Content-Type': 'application/json' })
