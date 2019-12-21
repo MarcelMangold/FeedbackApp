@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
-import { Survey } from 'src/app/models/survey';
+import { SurveyDetails } from 'src/app/models/survey';
 import { Answer } from 'src/app/models/answer';
 
 @Component({
@@ -13,7 +13,7 @@ export class AdminPage implements OnInit {
 
     isLoggedIn: boolean = false;
     user: User = new User("", "");
-    surveys: Array<Survey> = [];
+    surveys: Array<SurveyDetails> = [];
     disableToogleButton: boolean = false;
     constructor(private apiService: ApiService) { }
 
@@ -27,7 +27,7 @@ export class AdminPage implements OnInit {
             localStorage.setItem("isLoggedIn", this.isLoggedIn.toString())
         });
         if (this.isLoggedIn) {
-            this.apiService.getSurveys().then((res: Array<Survey>) => {
+            this.apiService.getSurveys().then((res: Array<SurveyDetails>) => {
                 this.surveys = res;
             });
         }
@@ -37,8 +37,7 @@ export class AdminPage implements OnInit {
 
     }
 
-    setSurveyActive(survey: Survey) {
-        console.log(survey);
+    setSurveyActive(survey: SurveyDetails) {
         this.disableToogleButton = true;
         this.surveys.forEach(element => {
             if (element.surveyId == survey.surveyId)

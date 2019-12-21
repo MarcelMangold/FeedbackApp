@@ -112,3 +112,4 @@ _ReSharper*/
 packages/
 environment.prod.ts
 /api/rating.json
+/api/survey.json

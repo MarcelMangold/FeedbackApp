@@ -3,6 +3,7 @@ const router = express.Router();
 const logger = require('../helpers/logger');
 const httpCodes = require('../config/http-codes.json');
 const fileHelper = require('../helpers/fileHelper')
+const helper = require('../helpers/helper')
 
 
 router.get('/api/surveys', async (req, res) => {
@@ -20,6 +21,26 @@ router.get('/api/surveys', async (req, res) => {
         }
     } catch (err) {
         logger.error(err);
+        res.status(httpCodes.internalError).send(err);
+    }
+});
+
+router.post('/api/survey', async (req, res) => {
+    try {
+        let survey = req.body.survey;
+        let data = JSON.parse(fileHelper.loadData("survey.json"));
+        if (data != false) {
+            survey.surveyId = helper.getHighestSurveyId(data) + 1;
+            data.push(survey);
+            fileHelper.storeData(data, "survey.json");
+            res.status(httpCodes.ok).send({ success: true, message: "survey successfully saved" });         
+        }
+        else {
+            res.status(httpCodes.notFound).send("no data found");
+        }
+    } catch (err) {
+        logger.error(err);
+        console.log(err);
         res.status(httpCodes.internalError).send(err);
     }
 });
@@ -49,26 +70,26 @@ router.put('/api/stateSurvey', async (req, res) => {
 
 router.get('/api/survey/:id', async (req, res) => {
     let surveyId = req.params.id;
-    /*  try { */
-    let data = JSON.parse(fileHelper.loadData("rating.json"));
-    if (data != false) {
-        for (let i = 0; i < data.length; i++) {
-            if (data[i].surveyId == surveyId) {
-                data = calcuteRating(data[i])
-                res.status(httpCodes.ok).send(data);
-                return;
+    try {
+        let data = JSON.parse(fileHelper.loadData("rating.json"));
+        if (data != false) {
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].surveyId == surveyId) {
+                    data = calcuteRating(data[i])
+                    res.status(httpCodes.ok).send(data);
+                    return;
+                }
+                else if (i == data.length - 1)
+                    res.status(httpCodes.badRequest).send(`no data found for id ${surveyId}`);
             }
-            else if (i == data.length - 1)
-                res.status(httpCodes.badRequest).send(`no data found for id ${surveyId}`);
         }
+        else {
+            res.status(httpCodes.notFound).send("no data found");
+        }
+    } catch (err) {
+        logger.error(err);
+        res.status(httpCodes.internalError).send(err);
     }
-    else {
-        res.status(httpCodes.notFound).send("no data found");
-    }
-    /*     } catch (err) {
-            logger.error(err);
-            res.status(httpCodes.internalError).send(err);
-        } */
 });
 
 function calcuteRating(data) {
@@ -91,7 +112,7 @@ function calcuteRating(data) {
                         for (let i = 0; i < ratingData.subCategories.length; i++) {
                             if (ratingData.subCategories[i].subCategorieId == subCategorie.subCategorieId) {
                                 let ratingSubCategorie = ratingData.subCategories[i];
-                                subCategorie.rating =  parseInt(subCategorie.rating);
+                                subCategorie.rating = parseInt(subCategorie.rating);
                                 //(average value old * N + new value) / (N+1)
                                 ratingSubCategorie.averageRating = ((ratingSubCategorie.averageRating * ratingSubCategorie.numberParticipants) + subCategorie.rating) / (ratingSubCategorie.numberParticipants + 1);
                                 ratingSubCategorie.highestRating = ratingSubCategorie.highestRating > subCategorie.rating ? ratingSubCategorie.highestRating : subCategorie.rating;

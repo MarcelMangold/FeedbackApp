@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Neue Umfrage</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="isLoggedIn">
+    <ion-item lines="none">
+        <ion-label position="stacked">
+            <h1>Umfragename: </h1>
+        </ion-label>
+        <ion-input required position="stacked" color="medium" [(ngModel)]="survey.name"></ion-input>
+    </ion-item>
+
+    <ion-list class="ion-no-padding" style="margin-bottom: 0px; padding-left: 2.5%;" lines="none" *ngFor="let categorie of survey.categories;let indexCategorie = index; ">
+        <ion-item>
+            <ion-label position="stacked">
+                <h2>Kategoriename:</h2>
+            </ion-label>
+            <ion-input color="medium" [(ngModel)]="categorie.name"></ion-input>
+        </ion-item>
+        <ion-list class="ion-no-padding" style="margin-bottom: 0px; padding-left: 5%;" *ngFor="let subCategorie of categorie.subCategories;">
+            <ion-item>
+                <ion-label position="stacked">
+                    <h3>Unterkategorie:</h3>
+                </ion-label>
+                <ion-input color="medium" [(ngModel)]="subCategorie.name"></ion-input>
+            </ion-item>
+        </ion-list>
+        <ion-item class="ion-no-padding" style="margin-bottom: 0px; padding-left: 5%; border-bottom: inset;">
+            <ion-button (click)="addSubCategorie(indexCategorie)">Unterkategorie hinzufügen</ion-button>
+        </ion-item>
+
+    </ion-list>
+    <ion-item class="ion-no-padding" style="margin-bottom: 0px; padding-left: 2.5%;">
+        <ion-button (click)="addCategorie()">Kategorie hinzufügen</ion-button>
+    </ion-item>
+
+
+
+</ion-content>
+
+<ion-footer>
+    <ion-button class="ion-no-margin" expand="full" (click)="saveSurvey()">Speichern</ion-button>
+</ion-footer>

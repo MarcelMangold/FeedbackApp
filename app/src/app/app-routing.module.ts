@@ -8,6 +8,8 @@ const routes: Routes = [
         path: 'survey_details/:survey_id',
         loadChildren: './private/survey-details/survey-details.module#SurveyDetailsPageModule'
     },
+  { path: 'new_survey', loadChildren: './private/new-survey/new-survey.module#NewSurveyPageModule' },
+
 
 ];
 @NgModule({
